@@ -9,7 +9,7 @@ return [
     'date_format'           => 'd.m.Y H:i:s',
     'icons' => [
         'media'             => 'icon-picture',
-        'media_category'    => 'icon-picture'
+        'media_category'    => 'icon-notebook'
     ],
 
     /*

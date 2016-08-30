@@ -35,7 +35,7 @@ class MigrationLaravelMediaModule extends Migration
             Schema::create('medias', function (Blueprint $table) {
                 $table->increments('id');
                 $table->integer('category_id')->unsigned();
-                $table->foreign('category_id')->references('id')->on('description_categories')->onDelete('cascade');
+                $table->foreign('category_id')->references('id')->on('media_categories')->onDelete('cascade');
 
                 $table->string('title');
                 $table->string('description');
@@ -50,7 +50,7 @@ class MigrationLaravelMediaModule extends Migration
             Schema::create('media_photos', function (Blueprint $table) {
                 $table->increments('id');
                 $table->integer('media_id')->unsigned();
-                $table->foreign('media_id')->references('id')->on('descriptions')->onDelete('cascade');
+                $table->foreign('media_id')->references('id')->on('medias')->onDelete('cascade');
 
                 $table->string('photo');
 
@@ -58,11 +58,11 @@ class MigrationLaravelMediaModule extends Migration
             });
         }
 
-        if ( ! Schema::hasTable('description_videos')) {
-            Schema::create('description_videos', function (Blueprint $table) {
+        if ( ! Schema::hasTable('media_videos')) {
+            Schema::create('media_videos', function (Blueprint $table) {
                 $table->increments('id');
                 $table->integer('media_id')->unsigned();
-                $table->foreign('media_id')->references('id')->on('descriptions')->onDelete('cascade');
+                $table->foreign('media_id')->references('id')->on('medias')->onDelete('cascade');
 
                 $table->string('video');
 

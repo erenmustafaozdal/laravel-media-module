@@ -100,7 +100,7 @@ class Media extends Model
      */
     public function video()
     {
-        return $this->hasOne('App\MediaDescription','media_id');
+        return $this->hasOne('App\MediaVideo','media_id');
     }
 
     /**
