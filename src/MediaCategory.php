@@ -26,49 +26,6 @@ class MediaCategory extends Node
 
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Methods
-    |--------------------------------------------------------------------------
-    */
-
-    /**
-     * set nodes
-     *
-     * @param $request
-     * @param string $type => move|store
-     */
-    public function setNode(Request $request, $type = 'store')
-    {
-        if ( ! $request->has('position')) {
-            $model = MediaCategory::find($request->input('parent'));
-            $this->makeChildOf($model);
-            return;
-        }
-
-        $input = $type === 'store' ? 'parent' : 'related';
-        switch($request->input('position')) {
-            case 'firstChild':
-                $model = MediaCategory::find($request->input($input));
-                $this->makeFirstChildOf($model);
-                break;
-            case 'lastChild':
-                $model = MediaCategory::find($request->input($input));
-                $this->makeChildOf($model);
-                break;
-            case 'before':
-                $model = MediaCategory::find($request->input('related'));
-                $this->moveToLeftOf($model);
-                break;
-            case 'after':
-                $model = MediaCategory::find($request->input('related'));
-                $this->moveToRightOf($model);
-                break;
-        }
-    }
-
-
-
 
 
     /*
@@ -76,6 +33,28 @@ class MediaCategory extends Node
     | Model Scopes
     |--------------------------------------------------------------------------
     */
+
+    /**
+     * all medias of the category descendants and self
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $type [photo,video]
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAllMedias($query, $type)
+    {
+        return $query->with([
+            $type . 's' => function($q)
+            {
+                $q->with([
+                    'media' => function ($q)
+                    {
+                        $q->select('id','title','description','is_publish');
+                    }
+                ]);
+            }
+        ]);
+    }
 
 
 
@@ -93,6 +72,26 @@ class MediaCategory extends Node
     public function medias()
     {
         return $this->hasMany('App\Media','category_id');
+    }
+
+    /**
+     * Get all of the videos for the category.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function videos()
+    {
+        return $this->hasManyThrough('App\MediaVideo', 'App\Media', 'category_id', 'media_id');
+    }
+
+    /**
+     * Get all of the photos for the category.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function photos()
+    {
+        return $this->hasManyThrough('App\MediaPhoto', 'App\Media', 'category_id', 'media_id');
     }
 
 

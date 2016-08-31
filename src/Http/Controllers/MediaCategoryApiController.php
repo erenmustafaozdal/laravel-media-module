@@ -61,6 +61,7 @@ class MediaCategoryApiController extends BaseNodeController
      */
     public function store(ApiStoreRequest $request)
     {
+        $this->setDefineValues(['type']);
         $this->setEvents([
             'success'   => StoreSuccess::class,
             'fail'      => StoreFail::class
@@ -99,6 +100,7 @@ class MediaCategoryApiController extends BaseNodeController
     public function move(ApiMoveRequest $request, $id)
     {
         $media_category = MediaCategory::findOrFail($id);
+        $this->setDefineValues(['type']);
         $this->setEvents([
             'success'   => MoveSuccess::class,
             'fail'      => MoveFail::class

@@ -11,6 +11,10 @@ return [
         'media'             => 'icon-picture',
         'media_category'    => 'icon-notebook'
     ],
+    'media_types' => [
+        'photo'             => 'photo',
+        'video'             => 'video'
+    ],
 
     /*
     |--------------------------------------------------------------------------

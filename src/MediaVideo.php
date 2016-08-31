@@ -55,4 +55,17 @@ class MediaVideo extends Model
     | Model Set and Get Attributes
     |--------------------------------------------------------------------------
     */
+
+    /**
+     * get the source of the video
+     *
+     * @return string
+     */
+    public function getEmbedAttribute()
+    {
+        preg_match( '/[\\?\\&]v=([^\\?\\&]+)/', $this->video, $matches );
+        return "<div class='embed-responsive embed-responsive-16by9'>
+            <iframe class='embed-responsive-item' src='https://www.youtube.com/embed/{$matches[1]}?showinfo=0'></iframe>
+        </div>";
+     }
 }

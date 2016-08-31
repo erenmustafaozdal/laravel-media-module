@@ -14,7 +14,7 @@ class MediaPhoto extends Model
      *
      * @var string
      */
-    protected $table = 'document_photos';
+    protected $table = 'media_photos';
 
     /**
      * The attributes that are mass assignable.
@@ -42,7 +42,7 @@ class MediaPhoto extends Model
     */
 
     /**
-     * Get the photo of the document.
+     * Get the photo of the media.
      */
     public function media()
     {

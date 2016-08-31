@@ -71,6 +71,7 @@ class MediaCategoryController extends BaseNodeController
         }
         $redirect = 'media_category.media_category.index';
         $this->setRelationRouteParam($id, config('laravel-media-module.url.media_category'));
+        $this->setDefineValues(['type']);
         return $this->storeNode(MediaCategory::class,$redirect);
     }
 

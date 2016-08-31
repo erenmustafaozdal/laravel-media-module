@@ -29,7 +29,6 @@ class ApiUpdateRequest extends Request
     {
         return [
             'name'          => 'required|max:255',
-            'type'          => 'required|in:photo,video',
             'parent'        => 'required|integer'
         ];
     }
