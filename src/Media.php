@@ -88,15 +88,19 @@ class Media extends Model
     */
 
     /**
-     * Get the category of the media.
+     * Get the categories of the media.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function category()
+    public function categories()
     {
-        return $this->belongsTo('App\MediaCategory');
+        return $this->belongsToMany('App\MediaCategory')->withTimestamps();
     }
 
     /**
      * Get the media video.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function video()
     {
@@ -105,6 +109,8 @@ class Media extends Model
 
     /**
      * Get the media photo.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function photo()
     {

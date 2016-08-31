@@ -34,12 +34,23 @@ class MigrationLaravelMediaModule extends Migration
         if ( ! Schema::hasTable('medias')) {
             Schema::create('medias', function (Blueprint $table) {
                 $table->increments('id');
-                $table->integer('category_id')->unsigned();
-                $table->foreign('category_id')->references('id')->on('media_categories')->onDelete('cascade');
 
                 $table->string('title');
                 $table->string('description');
                 $table->boolean('is_publish')->default(0);
+                $table->timestamps();
+
+                $table->engine = 'InnoDB';
+            });
+        }
+
+        if ( ! Schema::hasTable('media_media_category')) {
+            Schema::create('media_media_category', function (Blueprint $table) {
+                $table->integer('media_category_id')->unsigned()->index();
+                $table->foreign('media_category_id')->references('id')->on('media_categories')->onDelete('cascade');
+
+                $table->integer('media_id')->unsigned()->index();
+                $table->foreign('media_id')->references('id')->on('medias')->onDelete('cascade');
                 $table->timestamps();
 
                 $table->engine = 'InnoDB';
@@ -80,6 +91,7 @@ class MigrationLaravelMediaModule extends Migration
     {
         Schema::drop('media_videos');
         Schema::drop('media_photos');
+        Schema::drop('media_media_category');
         Schema::drop('medias');
         Schema::drop('media_categories');
     }

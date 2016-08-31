@@ -68,11 +68,12 @@ class MediaApiController extends BaseController
     {
         // query
         if (is_null($id)) {
-            $medias = Media::with('category');
+            $medias = Media::with('categories');
         } else {
-            $medias = MediaCategory::findOrFail($id)->medias();
+            $category = MediaCategory::findOrFail($id);
+            $medias = $category->medias()->with('categories',$category->type);
         }
-        $medias->select(['id','category_id','title','description','is_publish','created_at']);
+        $medias->select(['id','title','description','is_publish','created_at']);
 
         // if is filter action
         if ($request->has('action') && $request->input('action') === 'filter') {
@@ -90,12 +91,12 @@ class MediaApiController extends BaseController
         }
         $addColumns = [
             'addUrls'           => $addUrls,
-            'status'            => function($model) { return $model->is_publish; },
+            'status'            => function($model) { return $model->is_publish; }
         ];
         $editColumns = [
             'created_at'        => function($model) { return $model->created_at_table; }
         ];
-        $removeColumns = ['is_publish','category_id'];
+        $removeColumns = ['is_publish'];
         return $this->getDatatables($medias, $addColumns, $editColumns, $removeColumns);
     }
 

@@ -58,4 +58,24 @@ class MediaPhoto extends Model
     | Model Set and Get Attributes
     |--------------------------------------------------------------------------
     */
+
+    /**
+     * get the source of the video
+     *
+     * @return string
+     */
+    public function getUrlAttribute()
+    {
+        return $this->getPhoto([],'normal',true,'media','media');
+    }
+
+    /**
+     * get the embed code of the video
+     *
+     * @return string
+     */
+    public function getHtmlAttribute()
+    {
+        return $this->getPhoto([],'normal',false,'media','media');
+    }
 }

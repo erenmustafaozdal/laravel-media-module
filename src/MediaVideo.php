@@ -61,11 +61,32 @@ class MediaVideo extends Model
      *
      * @return string
      */
-    public function getEmbedAttribute()
+    public function getUrlAttribute()
+    {
+        return $this->video;
+    }
+
+    /**
+     * get the source of the video
+     *
+     * @return string
+     */
+    public function getEmbedUrlAttribute()
+    {
+        preg_match( '/[\\?\\&]v=([^\\?\\&]+)/', $this->video, $matches );
+        return "https://www.youtube.com/embed/{$matches[1]}?showinfo=0";
+    }
+
+    /**
+     * get the embed code of the video
+     *
+     * @return string
+     */
+    public function getHtmlAttribute()
     {
         preg_match( '/[\\?\\&]v=([^\\?\\&]+)/', $this->video, $matches );
         return "<div class='embed-responsive embed-responsive-16by9'>
-            <iframe class='embed-responsive-item' src='https://www.youtube.com/embed/{$matches[1]}?showinfo=0'></iframe>
+            <iframe class='embed-responsive-item' src='{$this->embed_url}'></iframe>
         </div>";
-     }
+    }
 }

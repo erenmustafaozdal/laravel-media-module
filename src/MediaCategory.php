@@ -44,14 +44,9 @@ class MediaCategory extends Node
     public function scopeAllMedias($query, $type)
     {
         return $query->with([
-            $type . 's' => function($q)
+            'medias' => function ($q) use($type)
             {
-                $q->with([
-                    'media' => function ($q)
-                    {
-                        $q->select('id','title','description','is_publish');
-                    }
-                ]);
+                $q->select('id','title','description','is_publish')->with($type);
             }
         ]);
     }
@@ -71,27 +66,7 @@ class MediaCategory extends Node
      */
     public function medias()
     {
-        return $this->hasMany('App\Media','category_id');
-    }
-
-    /**
-     * Get all of the videos for the category.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
-     */
-    public function videos()
-    {
-        return $this->hasManyThrough('App\MediaVideo', 'App\Media', 'category_id', 'media_id');
-    }
-
-    /**
-     * Get all of the photos for the category.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
-     */
-    public function photos()
-    {
-        return $this->hasManyThrough('App\MediaPhoto', 'App\Media', 'category_id', 'media_id');
+        return $this->belongsToMany('App\Media')->withTimestamps();
     }
 
 
