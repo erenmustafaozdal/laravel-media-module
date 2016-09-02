@@ -31,9 +31,8 @@ class StoreRequest extends Request
         $mimes_photo = config('laravel-media-module.media.uploads.photo.mimes');
 
         $rules = [
-            'category_id'       => 'required|integer',
             'title'             => 'required|max:255',
-            'video'             => 'max:255'
+            'video'             => 'youtube_link|max:255'
         ];
 
         // photo elfinder mi
