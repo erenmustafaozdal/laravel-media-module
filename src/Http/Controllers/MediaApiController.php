@@ -29,6 +29,22 @@ use ErenMustafaOzdal\LaravelMediaModule\Http\Requests\Media\ApiUpdateRequest;
 class MediaApiController extends BaseController
 {
     /**
+     * default relation datas
+     *
+     * @var array
+     */
+    private $relations = [
+        'video' => [
+            'relation_type'     => 'hasOne',
+            'relation'          => 'video',
+            'relation_model'    => '\App\MediaVideo',
+            'datas' => [
+                'video'   => null
+            ]
+        ]
+    ];
+
+    /**
      * default urls of the model
      *
      * @var array
@@ -68,7 +84,7 @@ class MediaApiController extends BaseController
     {
         // query
         if (is_null($id)) {
-            $medias = Media::with('categories');
+            $medias = Media::with('categories','video','photo');
         } else {
             $category = MediaCategory::findOrFail($id);
             $medias = $category->medias()->with('categories',$category->type);
@@ -91,12 +107,22 @@ class MediaApiController extends BaseController
         }
         $addColumns = [
             'addUrls'           => $addUrls,
-            'status'            => function($model) { return $model->is_publish; }
+            'status'            => function($model) { return $model->is_publish; },
+            'media'             => function($model)
+            {
+                if ( ! is_null($model->video) ) {
+                    return $model->video->html;
+                }
+                if ( ! is_null($model->photo) ) {
+                    return $model->photo->html;
+                }
+                return '';
+            }
         ];
         $editColumns = [
             'created_at'        => function($model) { return $model->created_at_table; }
         ];
-        $removeColumns = ['is_publish'];
+        $removeColumns = ['is_publish','photo','video'];
         return $this->getDatatables($medias, $addColumns, $editColumns, $removeColumns);
     }
 
@@ -110,9 +136,9 @@ class MediaApiController extends BaseController
     public function detail($id, Request $request)
     {
         $media = Media::with([
-            'category' => function($query)
+            'categories' => function($query)
             {
-                return $query->select(['id','name','has_description','has_photo']);
+                return $query->select(['id','name']);
             },
             'video' => function($query)
             {
@@ -122,13 +148,14 @@ class MediaApiController extends BaseController
             {
                 return $query->select(['id','media_id','photo']);
             }
-        ])->where('id',$id)->select(['id','category_id','title','media','size','created_at','updated_at']);
+        ])->where('id',$id)->select(['id','title','description','created_at','updated_at']);
 
         $editColumns = [
             'size'          => function($model) { return $model->size_table; },
             'created_at'    => function($model) { return $model->created_at_table; },
             'updated_at'    => function($model) { return $model->updated_at_table; },
-            'photo.photo'   => function($model) { return !is_null($model->photo) ? $model->photo->getPhoto([], 'big', true, 'media','media') : ''; },
+            'photo.photo'   => function($model) { return !is_null($model->photo) ? $model->photo->getPhoto(['class' => 'img-responsive'], 'normal', true, 'media','media') : ''; },
+            'video.video'   => function($model) { return !is_null($model->video) ? $model->video->embed_url : ''; },
         ];
         return $this->getDatatables($media, [], $editColumns, []);
     }
@@ -143,11 +170,11 @@ class MediaApiController extends BaseController
     public function fastEdit($id, Request $request)
     {
         return Media::with([
-            'category' => function($query)
+            'categories' => function($query)
             {
                 return $query->select(['id','name']);
             }
-        ])->where('id',$id)->first(['id','category_id','title','is_publish']);
+        ])->where('id',$id)->first(['id','title','description','is_publish']);
     }
 
     /**
@@ -163,6 +190,10 @@ class MediaApiController extends BaseController
             'success'   => StoreSuccess::class,
             'fail'      => StoreFail::class
         ]);
+        if ($request->has('video')) {
+            $this->relations['video']['datas']['video'] = $request->video;
+            $this->setOperationRelation($this->relations);
+        }
         return $this->storeModel(Media::class);
     }
 

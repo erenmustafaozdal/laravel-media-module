@@ -28,9 +28,8 @@ class ApiUpdateRequest extends Request
     public function rules()
     {
         return [
-            'category_id'       => 'required|integer',
-            'title'             => 'required|max:255',
-            'video'             => 'max:255'
+            'category_id'       => 'array',
+            'title'             => 'required|max:255'
         ];
     }
 }

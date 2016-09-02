@@ -31,14 +31,13 @@ class ApiStoreRequest extends Request
         $mimes_photo = config('laravel-media-module.media.uploads.photo.mimes');
 
         $rules = [
-            'category_id'       => 'required|integer',
             'title'             => 'required|max:255',
             'video'             => 'max:255'
         ];
 
         // photo elfinder mi
         if ($this->has('photo') && is_string($this->photo)) {
-            return $rules['photo'] = "elfinder_max:{$max_photo}|elfinder:{$mimes_photo}";
+            $rules['photo'] = "elfinder_max:{$max_photo}|elfinder:{$mimes_photo}";
         } else {
             for($i = 0; $i < count($this->file('photo')); $i++) {
                 $rules['photo.' . $i] = "max:{$max_photo}|image|mimes:{$mimes_photo}";

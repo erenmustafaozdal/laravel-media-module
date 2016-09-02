@@ -13,7 +13,8 @@ return [
     ],
     'media_types' => [
         'photo'             => 'photo',
-        'video'             => 'video'
+        'video'             => 'video',
+        'mixed'             => 'mixed'
     ],
 
     /*

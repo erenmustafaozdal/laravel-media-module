@@ -29,7 +29,7 @@ class StoreRequest extends Request
     {
         return [
             'name'          => 'required|max:255',
-            'type'          => 'required|in:photo,video',
+            'type'          => 'required|in:photo,video,mixed',
             'parent'        => 'integer'
         ];
     }

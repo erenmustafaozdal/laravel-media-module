@@ -139,8 +139,8 @@ class MediaCategoryApiController extends BaseNodeController
             $models = MediaCategory::where('name', 'like', "%{$request->input('query')}%");
         }
 
-        $models = $models->get(['id','parent_id','lft','rgt','depth','name'])
+        $models = $models->get(['id','parent_id','lft','rgt','depth','name','type'])
             ->toHierarchy();
-        return LMBCollection::relationRender($models, 'children');
+        return LMBCollection::relationRender($models, 'children', '/', ['name', 'type']);
     }
 }

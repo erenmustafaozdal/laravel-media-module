@@ -37,14 +37,6 @@ class MediaController extends BaseController
             'datas' => [
                 'video'   => null
             ]
-        ],
-        'photo' => [
-            'relation_type'     => 'hasOne',
-            'relation'          => 'photo',
-            'relation_model'    => '\App\MediaPhoto',
-            'datas' => [
-                'photo'   => null
-            ]
         ]
     ];
 

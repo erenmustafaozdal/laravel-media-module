@@ -3,6 +3,7 @@
 namespace ErenMustafaOzdal\LaravelMediaModule;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Request;
 use Carbon\Carbon;
 use ErenMustafaOzdal\LaravelModulesBase\Traits\ModelDataTrait;
 use ErenMustafaOzdal\LaravelModulesBase\Repositories\FileRepository;
@@ -24,7 +25,6 @@ class Media extends Model
      * @var array
      */
     protected $fillable = [
-        'category_id',
         'title',
         'description',
         'is_publish'
@@ -59,7 +59,7 @@ class Media extends Model
         }
         // filter category
         if ($request->has('category')) {
-            $query->whereHas('category', function ($query) use($request) {
+            $query->whereHas('categories', function ($query) use($request) {
                 $query->where('name', 'like', "%{$request->get('category')}%");
             });
         }
@@ -127,6 +127,36 @@ class Media extends Model
     |--------------------------------------------------------------------------
     */
 
+    /**
+     * get the media type
+     *
+     * @return string
+     */
+    public function getTypeAttribute()
+    {
+        return is_null($this->video) ? 'photo' : 'video';
+    }
+
+    /**
+     * get the html of the media
+     *
+     * @return string
+     */
+    public function getHtmlAttribute()
+    {
+        return is_null($this->video) ? $this->photo->html : $this->video->html;
+    }
+
+    /**
+     * get the img of the media
+     *
+     * @return string
+     */
+    public function getImgAttribute()
+    {
+        return is_null($this->video) ? $this->photo->img : $this->video->img;
+    }
+
 
 
 
@@ -143,6 +173,18 @@ class Media extends Model
     protected static function boot()
     {
         parent::boot();
+
+        /**
+         * model saved method
+         *
+         * @param $model
+         */
+        parent::saved(function($model)
+        {
+            if (Request::has('category_id')) {
+                $model->categories()->sync( Request::get('category_id') );
+            }
+        });
 
         /**
          * model deleted method

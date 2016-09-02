@@ -3,7 +3,7 @@
 namespace ErenMustafaOzdal\LaravelMediaModule;
 
 use Baum\Node;
-use Illuminate\Http\Request;
+use Request;
 use ErenMustafaOzdal\LaravelModulesBase\Traits\ModelDataTrait;
 
 class MediaCategory extends Node
@@ -43,6 +43,7 @@ class MediaCategory extends Node
      */
     public function scopeAllMedias($query, $type)
     {
+        $type = $type === 'mixed' ? ['video', 'photo'] : [$type];
         return $query->with([
             'medias' => function ($q) use($type)
             {
@@ -78,4 +79,34 @@ class MediaCategory extends Node
     | Model Set and Get Attributes
     |--------------------------------------------------------------------------
     */
+
+
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Model Events
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * model boot method
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        /**
+         * model saved method
+         *
+         * @param $model
+         */
+        parent::saved(function($model)
+        {
+            if (Request::has('media_id')) {
+                $model->medias()->sync( Request::get('media_id') );
+            }
+        });
+    }
 }

@@ -2,8 +2,12 @@
 
 namespace ErenMustafaOzdal\LaravelMediaModule\Http\Controllers;
 
+
 use App\Http\Requests;
+use Illuminate\Http\Request;
 use App\MediaCategory;
+use App\Media;
+use Laracasts\Flash\Flash;
 
 use ErenMustafaOzdal\LaravelModulesBase\Controllers\BaseNodeController;
 // events
@@ -38,18 +42,37 @@ class MediaCategoryController extends BaseNodeController
     /**
      * Show the form for creating a new resource.
      *
+     * @param \Illuminate\Http\Request $request
      * @param integer|null $id
      * @return \Illuminate\Http\Response
      */
-    public function create($id = null)
+    public function create(Request $request, $id = null)
     {
+        // eğer media ids var ve token hatalı ise hata döndür
+        if ( $request->has('media_ids') && ( ! $request->has('_token') || session('_token') !== $request->input('_token') ) ) {
+            abort(403);
+        }
+
+        // media ids var ise oluştur
+        $medias = $request->has('media_ids') ? Media::with('video','photo')->whereIn('id', explode(',', $request->media_ids))->get() : collect();
+
         $operation = 'create';
         if (is_null($id)) {
-            return view(config('laravel-media-module.views.media_category.create'), compact('operation'));
+            return view(config('laravel-media-module.views.media_category.create'), compact('operation','medias'));
         }
 
         $parent_media_category = MediaCategory::findOrFail($id);
-        return view(config('laravel-media-module.views.media_category.create'), compact('parent_media_category','operation'));
+        $type = $parent_media_category->type;
+        $types = $medias->groupBy('type');
+
+        // kategori olduğu için; gelen medyalar kategorinin tipine uygun olmalı
+        if ( $type !== 'mixed' || ($types->count() === 1 && $types->keys()->all()[0] !== $type) ) {
+            Flash::error(lmcTrans('laravel-media-module/admin.flash.media_incompatible', [
+                'type' => lmcTrans("laravel-media-module/admin.fields.media.{$type}")
+            ]));
+            return back();
+        }
+        return view(config('laravel-media-module.views.media_category.create'), compact('parent_media_category','operation','medias'));
     }
 
     /**

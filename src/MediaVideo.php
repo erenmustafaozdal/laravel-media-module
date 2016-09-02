@@ -67,14 +67,24 @@ class MediaVideo extends Model
     }
 
     /**
+     * get the id of the video
+     *
+     * @return string
+     */
+    public function getVideoIdAttribute()
+    {
+        preg_match( '/[\\?\\&]v=([^\\?\\&]+)/', $this->video, $matches );
+        return $matches[1];
+    }
+
+    /**
      * get the source of the video
      *
      * @return string
      */
     public function getEmbedUrlAttribute()
     {
-        preg_match( '/[\\?\\&]v=([^\\?\\&]+)/', $this->video, $matches );
-        return "https://www.youtube.com/embed/{$matches[1]}?showinfo=0";
+        return "https://www.youtube.com/embed/{$this->video_id}?showinfo=0";
     }
 
     /**
@@ -84,9 +94,18 @@ class MediaVideo extends Model
      */
     public function getHtmlAttribute()
     {
-        preg_match( '/[\\?\\&]v=([^\\?\\&]+)/', $this->video, $matches );
         return "<div class='embed-responsive embed-responsive-16by9'>
             <iframe class='embed-responsive-item' src='{$this->embed_url}'></iframe>
         </div>";
+    }
+
+    /**
+     * get the image code of the photo
+     *
+     * @return string
+     */
+    public function getImgAttribute()
+    {
+        return '<img src="http://img.youtube.com/vi/' . $this->video_id . '/sddefault.jpg">';
     }
 }

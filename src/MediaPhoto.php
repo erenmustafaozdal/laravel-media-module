@@ -70,12 +70,22 @@ class MediaPhoto extends Model
     }
 
     /**
-     * get the embed code of the video
+     * get the html code of the photo
      *
      * @return string
      */
     public function getHtmlAttribute()
     {
         return $this->getPhoto([],'normal',false,'media','media');
+    }
+
+    /**
+     * get the image code of the photo
+     *
+     * @return string
+     */
+    public function getImgAttribute()
+    {
+        return $this->html;
     }
 }
