@@ -66,7 +66,7 @@ class MediaCategoryController extends BaseNodeController
         $types = $medias->groupBy('type');
 
         // kategori olduğu için; gelen medyalar kategorinin tipine uygun olmalı
-        if ( $type !== 'mixed' || ($types->count() === 1 && $types->keys()->all()[0] !== $type) ) {
+        if ( $type !== 'mixed' && ($types->count() === 1 && $types->keys()->first() !== $type) ) {
             Flash::error(lmcTrans('laravel-media-module/admin.flash.media_incompatible', [
                 'type' => lmcTrans("laravel-media-module/admin.fields.media.{$type}")
             ]));
