@@ -162,7 +162,7 @@ class MediaApiController extends BaseController
             'size'          => function($model) { return $model->size_table; },
             'created_at'    => function($model) { return $model->created_at_table; },
             'updated_at'    => function($model) { return $model->updated_at_table; },
-            'photo.photo'   => function($model) { return !is_null($model->photo) ? $model->photo->getPhoto(['class' => 'img-responsive'], 'normal', true, 'media','media') : ''; },
+            'photo.photo'   => function($model) { return !is_null($model->photo) ? $model->photo->url : ''; },
             'video.video'   => function($model) { return !is_null($model->video) ? $model->video->embed_url : ''; },
         ];
         return $this->getDatatables($media, [], $editColumns, []);

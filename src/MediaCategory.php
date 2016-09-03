@@ -38,17 +38,14 @@ class MediaCategory extends Node
      * all medias of the category descendants and self
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $type [photo,video]
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeAllMedias($query, $type)
+    public function scopeAllMedias($query)
     {
-        dd($type);
-        $type = $type === 'mixed' ? ['video', 'photo'] : [$type];
         return $query->with([
-            'medias' => function ($q) use($type)
+            'medias' => function ($q)
             {
-                $q->select('id','title','description','is_publish')->with($type);
+                $q->select('id','title','description','is_publish')->with(['photo','video']);
             }
         ]);
     }
