@@ -183,14 +183,14 @@ class Media extends Model
         {
             if (Request::has('category_id')) {
                 $refferer = explode('/', removeDomain(Request::server('HTTP_REFERER')));
-                $ids = is_string(Request::get('category_id'))
-                    ? explode(',',Request::get('category_id'))
+                $ids = is_array(Request::get('category_id')) && Request::get('category_id')[0] != '0'
+                    ? Request::get('category_id')
                     : (
-                        ! Request::get('category_id')
-                            ? []
-                            : Request::get('category_id')
+                        is_string(Request::get('category_id'))
+                            ? explode(',',Request::get('category_id'))
+                            : []
                     );
-                if ( $refferer[1] === config('laravel-media-module.url.media_category') ) {
+                if ( $refferer[1] === config('laravel-media-module.url.media_category') && ! is_null($model->categories->first()) ) {
                     $ids[] = $model->categories->first()->id;
                 }
                 $model->categories()->sync( $ids );

@@ -102,9 +102,16 @@ class MediaCategory extends Node
          */
         parent::saved(function($model)
         {
-            $ids = Request::get('media_id');
-            $ids = is_string($ids) ? explode(',',$ids) : ( is_null($ids) ? [] : $ids);
-            $model->medias()->sync( $ids );
+            if (Request::has('media_id')) {
+                $ids = is_string(Request::get('media_id'))
+                    ? explode(',',Request::get('media_id'))
+                    : (
+                    ! Request::get('media_id') || Request::get('category_id')[0] == 0
+                        ? []
+                        : Request::get('media_id')
+                    );
+                $model->medias()->sync( $ids );
+            }
         });
     }
 }
