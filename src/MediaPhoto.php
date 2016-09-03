@@ -66,7 +66,7 @@ class MediaPhoto extends Model
      */
     public function getUrlAttribute()
     {
-        return $this->getPhoto([],'normal',true,'media','media_id');
+        return $this->getPhoto([],'big',true,'media','media_id');
     }
 
     /**

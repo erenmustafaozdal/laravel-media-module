@@ -7,7 +7,7 @@ ini_set('xdebug.max_nesting_level', 300);
 | Admin Routes
 |--------------------------------------------------------------------------
 */
-/*==========  Document Category Module  ==========*/
+/*==========  Media Category Module  ==========*/
 Route::group([
     'prefix' => config('laravel-media-module.url.admin_url_prefix'),
     'middleware' => config('laravel-media-module.url.middleware'),
@@ -46,7 +46,7 @@ Route::group([
     }
 });
 
-/*==========  Document Module  ==========*/
+/*==========  Media Module  ==========*/
 Route::group([
     'prefix'        => config('laravel-media-module.url.admin_url_prefix'),
     'middleware'    => config('laravel-media-module.url.middleware'),
@@ -124,7 +124,7 @@ Route::group([
 | Api Routes
 |--------------------------------------------------------------------------
 */
-/*==========  Document Category Module  ==========*/
+/*==========  Media Category Module  ==========*/
 Route::group([
     'prefix'        => 'api',
     'middleware'    => config('laravel-media-module.url.middleware'),
@@ -174,7 +174,7 @@ Route::group([
     }
 });
 
-/*==========  Document Module  ==========*/
+/*==========  Media Module  ==========*/
 Route::group([
     'prefix'        => 'api',
     'middleware'    => config('laravel-media-module.url.middleware'),
