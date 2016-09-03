@@ -87,9 +87,15 @@ class MediaApiController extends BaseController
             $medias = Media::with('categories','video','photo');
         } else {
             $category = MediaCategory::findOrFail($id);
-            $medias = $category->medias()->with('categories',$category->type);
+            $medias = $category->medias()->with([
+                'categories' => function($q) use($id)
+                {
+                    $q->where('id', '!=', $id);
+                },
+                $category->type
+            ]);
         }
-        $medias->select(['id','title','description','is_publish','created_at']);
+        $medias->select(['medias.id','medias.title','medias.description','medias.is_publish','medias.created_at']);
 
         // if is filter action
         if ($request->has('action') && $request->input('action') === 'filter') {
@@ -136,9 +142,11 @@ class MediaApiController extends BaseController
     public function detail($id, Request $request)
     {
         $media = Media::with([
-            'categories' => function($query)
+            'categories' => function($query) use($request)
             {
-                return $query->select(['id','name']);
+                $refferer = explode('/', removeDomain($request->server('HTTP_REFERER')));
+                $id = $refferer[1] === config('laravel-media-module.url.media_category') ? $refferer[2] : null;
+                return $query->select(['id','name'])->where('id', '!=', $id);
             },
             'video' => function($query)
             {
@@ -170,9 +178,11 @@ class MediaApiController extends BaseController
     public function fastEdit($id, Request $request)
     {
         return Media::with([
-            'categories' => function($query)
+            'categories' => function($query) use($request)
             {
-                return $query->select(['id','name']);
+                $refferer = explode('/', removeDomain($request->server('HTTP_REFERER')));
+                $id = $refferer[1] === config('laravel-media-module.url.media_category') ? $refferer[2] : null;
+                return $query->select(['id','name'])->where('id', '!=', $id);
             }
         ])->where('id',$id)->first(['id','title','description','is_publish']);
     }

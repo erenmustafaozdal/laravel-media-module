@@ -30,7 +30,7 @@ Route::group([
 
     // category categories
     if (config('laravel-media-module.routes.admin.category_categories')) {
-        Route::group(['middleware' => 'nested_model:DocumentCategory'], function() {
+        Route::group(['middleware' => 'nested_model:MediaCategory'], function() {
             Route::resource(config('laravel-media-module.url.media_category') . '/{id}/' . config('laravel-media-module.url.media_category'), config('laravel-media-module.controller.media_category'), [
                 'names' => [
                     'index' => 'admin.media_category.media_category.index',
@@ -85,7 +85,7 @@ Route::group([
     // admin publish media
     if (config('laravel-media-module.routes.admin.category_medias_publish')) {
         Route::get(config('laravel-media-module.url.media_category') . '/{id}/' . config('laravel-media-module.url.media') . '/{' . config('laravel-media-module.url.media') . '}/publish', [
-            'middleware'        => 'related_model:DocumentCategory,medias',
+            'middleware'        => 'related_model:MediaCategory,medias',
             'as'                => 'admin.media_category.media.publish',
             'uses'              => config('laravel-media-module.controller.media').'@publish'
         ]);
@@ -93,7 +93,7 @@ Route::group([
     // admin not publish media
     if (config('laravel-media-module.routes.admin.category_medias_notPublish')) {
         Route::get(config('laravel-media-module.url.media_category') . '/{id}/' . config('laravel-media-module.url.media') . '/{' . config('laravel-media-module.url.media') . '}/not-publish', [
-            'middleware'        => 'related_model:DocumentCategory,medias',
+            'middleware'        => 'related_model:MediaCategory,medias',
             'as'                => 'admin.media_category.media.notPublish',
             'uses'              => config('laravel-media-module.controller.media').'@notPublish'
         ]);
@@ -101,7 +101,7 @@ Route::group([
 
     // category medias
     if (config('laravel-media-module.routes.admin.category_medias')) {
-        Route::group(['middleware' => 'related_model:DocumentCategory,medias'], function() {
+        Route::group(['middleware' => 'related_model:MediaCategory,medias'], function() {
             Route::resource(config('laravel-media-module.url.media_category') . '/{id}/' . config('laravel-media-module.url.media'), config('laravel-media-module.controller.media'), [
                 'names' => [
                     'index' => 'admin.media_category.media.index',
@@ -167,7 +167,7 @@ Route::group([
     // category categories
     if (config('laravel-media-module.routes.api.category_categories_index')) {
         Route::get(config('laravel-media-module.url.media_category') . '/{id}/' . config('laravel-media-module.url.media_category'), [
-            'middleware'        => 'nested_model:DocumentCategory',
+            'middleware'        => 'nested_model:MediaCategory',
             'as'                => 'api.media_category.media_category.index',
             'uses'              => config('laravel-media-module.controller.media_category_api').'@index'
         ]);
@@ -229,7 +229,7 @@ Route::group([
     // category medias
     if (config('laravel-media-module.routes.api.category_medias_index')) {
         Route::get(config('laravel-media-module.url.media_category') . '/{id}/' . config('laravel-media-module.url.media'), [
-            'middleware'        => 'related_model:DocumentCategory,medias',
+            'middleware'        => 'related_model:MediaCategory,medias',
             'as'                => 'api.media_category.media.index',
             'uses'              => config('laravel-media-module.controller.media_api').'@index'
         ]);

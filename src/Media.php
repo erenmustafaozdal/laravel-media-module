@@ -144,7 +144,7 @@ class Media extends Model
      */
     public function getHtmlAttribute()
     {
-        return is_null($this->video) ? $this->photo->html : $this->video->html;
+        return ! is_null($this->video) ? $this->video->html : ( ! is_null($this->photo) ? $this->photo->html : '');
     }
 
     /**
@@ -181,9 +181,14 @@ class Media extends Model
          */
         parent::saved(function($model)
         {
-            if (Request::has('category_id')) {
-                $model->categories()->sync( Request::get('category_id') );
+            $refferer = explode('/', removeDomain(Request::server('HTTP_REFERER')));
+            $ids = Request::get('category_id');
+            $ids = is_string($ids) ? explode(',',$ids) : ( is_null($ids) ? [] : $ids);
+            if ( $refferer[1] === config('laravel-media-module.url.media_category') ) {
+                $ids[] = $model->categories->first()->id;
             }
+
+            $model->categories()->sync( $ids );
         });
 
         /**

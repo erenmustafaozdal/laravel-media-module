@@ -43,6 +43,7 @@ class MediaCategory extends Node
      */
     public function scopeAllMedias($query, $type)
     {
+        dd($type);
         $type = $type === 'mixed' ? ['video', 'photo'] : [$type];
         return $query->with([
             'medias' => function ($q) use($type)
@@ -104,9 +105,9 @@ class MediaCategory extends Node
          */
         parent::saved(function($model)
         {
-            if (Request::has('media_id')) {
-                $model->medias()->sync( Request::get('media_id') );
-            }
+            $ids = Request::get('media_id');
+            $ids = is_string($ids) ? explode(',',$ids) : ( is_null($ids) ? [] : $ids);
+            $model->medias()->sync( $ids );
         });
     }
 }

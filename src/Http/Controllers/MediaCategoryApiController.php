@@ -133,7 +133,7 @@ class MediaCategoryApiController extends BaseNodeController
     {
         if($request->has('id')) {
             $media_category = MediaCategory::find($request->input('id'));
-            $models = $media_category->descendantsAndSelf()->where('name', 'like', "%{$request->input('query')}%");
+            $models = $media_category->descendants()->where('name', 'like', "%{$request->input('query')}%");
 
         } else {
             $models = MediaCategory::where('name', 'like', "%{$request->input('query')}%");
