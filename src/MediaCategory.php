@@ -106,7 +106,7 @@ class MediaCategory extends Node
                 $ids = is_string(Request::get('media_id'))
                     ? explode(',',Request::get('media_id'))
                     : (
-                    ! Request::get('media_id') || Request::get('category_id')[0] == 0
+                    ! Request::get('media_id') || Request::get('media_id')[0] == 0
                         ? []
                         : Request::get('media_id')
                     );

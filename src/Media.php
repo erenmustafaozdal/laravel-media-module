@@ -190,8 +190,11 @@ class Media extends Model
                             ? explode(',',Request::get('category_id'))
                             : []
                     );
-                if ( $refferer[1] === config('laravel-media-module.url.media_category') && ! is_null($model->categories->first()) ) {
-                    $ids[] = $model->categories->first()->id;
+                if ( $refferer[1] === config('laravel-media-module.url.media_category') ) {
+                    $ids[] = $refferer[2];
+                    if ( ! is_null($model->categories->first()) && ! in_array($model->categories->first()->id,$ids) ) {
+                        $ids[] = $model->categories->first()->id;
+                    }
                 }
                 $model->categories()->sync( $ids );
             }
