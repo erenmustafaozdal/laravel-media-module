@@ -9,7 +9,6 @@ use App\Media;
 use App\MediaCategory;
 
 use ErenMustafaOzdal\LaravelModulesBase\Controllers\BaseController;
-use ErenMustafaOzdal\LaravelModulesBase\Repositories\FileRepository;
 // events
 use ErenMustafaOzdal\LaravelMediaModule\Events\Media\StoreSuccess;
 use ErenMustafaOzdal\LaravelMediaModule\Events\Media\StoreFail;
