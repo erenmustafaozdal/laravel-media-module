@@ -145,13 +145,6 @@ Route::group([
             'uses'              => config('laravel-media-module.controller.media_category_api').'@move'
         ]);
     }
-    // data table detail row
-    if (config('laravel-media-module.routes.api.media_category_detail')) {
-        Route::get('media-category/{id}/detail', [
-            'as'                => 'api.media_category.detail',
-            'uses'              => config('laravel-media-module.controller.media_category_api').'@detail'
-        ]);
-    }
     // media category resource
     if (config('laravel-media-module.routes.api.media_category')) {
         Route::resource(config('laravel-media-module.url.media_category'), config('laravel-media-module.controller.media_category_api'), [
