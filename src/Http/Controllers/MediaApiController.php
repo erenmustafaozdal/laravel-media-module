@@ -180,7 +180,7 @@ class MediaApiController extends BaseController
             'categories' => function($query) use($request)
             {
                 $refferer = explode('/', removeDomain($request->server('HTTP_REFERER')));
-                $id = $refferer[1] === config('laravel-media-module.url.media_category') ? $refferer[2] : null;
+                $id = $refferer[1] === config('laravel-media-module.url.media_category') ? $refferer[2] : 0;
                 return $query->select(['id','name'])->where('id', '!=', $id);
             }
         ])->where('id',$id)->first(['id','title','description','is_publish']);

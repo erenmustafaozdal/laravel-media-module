@@ -38,10 +38,12 @@ class ApiStoreRequest extends Request
         // photo elfinder mi
         if ($this->has('photo') && is_string($this->photo)) {
             $rules['photo'] = "elfinder_max:{$max_photo}|elfinder:{$mimes_photo}";
-        } else {
+        } else  if (is_array($this->photo)){
             for($i = 0; $i < count($this->file('photo')); $i++) {
                 $rules['photo.' . $i] = "max:{$max_photo}|image|mimes:{$mimes_photo}";
             }
+        } else {
+            $rules['photo'] = "max:{$max_photo}|image|mimes:{$mimes_photo}";
         }
 
         return $rules;

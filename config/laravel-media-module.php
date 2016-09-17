@@ -69,6 +69,7 @@ return [
             'media_category'                => true,        // api media category resource route
             'media_category_models'         => true,        // api media category model post route
             'media_category_move'           => true,        // api media category move post route
+            'media_category_detail'         => true,        // api media category detail post route
             'media'                         => true,        // api media resource route
             'media_group'                   => true,        // api media group post route
             'media_detail'                  => true,        // api media detail get route
