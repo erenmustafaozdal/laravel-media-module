@@ -182,15 +182,14 @@ class Media extends Model
         parent::saved(function($model)
         {
             if (Request::has('category_id')) {
-                $request = Request::get('category_id');
+                $request = is_array(Request::get('category_id'))
+                    ? collect(Request::get('category_id'))
+                    : collect([Request::get('category_id')]);
                 $refferer = explode('/', removeDomain(Request::server('HTTP_REFERER')));
-                if ( is_array($request) && $request[0] != '0' ) {
-                    $ids = $request;
-                } else if ( is_string($request) && $request != 0) {
-                    $ids = explode(',',$request);
-                } else {
-                    $ids = [];
-                }
+                $ids = $request->filter(function($item)
+                {
+                    return $item != 0;
+                })->all();
 
                 if ( $refferer[1] === config('laravel-media-module.url.media_category') ) {
                     $ids[] = $refferer[2];
