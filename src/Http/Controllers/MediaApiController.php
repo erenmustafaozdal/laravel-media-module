@@ -125,7 +125,15 @@ class MediaApiController extends BaseController
             }
         ];
         $editColumns = [
-            'created_at'        => function($model) { return $model->created_at_table; }
+            'created_at'        => function($model) { return $model->created_at_table; },
+            'title'             => function($model) { return $model->title_uc_first; },
+            'categories'        => function($model) {
+                return $model->categories->map(function($item,$key)
+                {
+                    $item->name = $item->name_uc_first;
+                    return $item;
+                })->all();
+            },
         ];
         $removeColumns = ['is_publish','photo','video'];
         return $this->getDatatables($medias, $addColumns, $editColumns, $removeColumns);
@@ -144,7 +152,7 @@ class MediaApiController extends BaseController
             'categories' => function($query) use($request)
             {
                 $refferer = explode('/', removeDomain($request->server('HTTP_REFERER')));
-                $id = $refferer[1] === config('laravel-media-module.url.media_category') ? $refferer[2] : null;
+                $id = $refferer[1] === config('laravel-media-module.url.media_category') ? $refferer[2] : 0;
                 return $query->select(['id','name'])->where('id', '!=', $id);
             },
             'video' => function($query)
@@ -163,6 +171,14 @@ class MediaApiController extends BaseController
             'updated_at'    => function($model) { return $model->updated_at_table; },
             'photo.photo'   => function($model) { return !is_null($model->photo) ? $model->photo->url : ''; },
             'video.video'   => function($model) { return !is_null($model->video) ? $model->video->embed_url : ''; },
+            'title'             => function($model) { return $model->title_uc_first; },
+            'categories'        => function($model) {
+                return $model->categories->map(function($item,$key)
+                {
+                    $item->name = $item->name_uc_first;
+                    return $item;
+                })->all();
+            },
         ];
         return $this->getDatatables($media, [], $editColumns, []);
     }
