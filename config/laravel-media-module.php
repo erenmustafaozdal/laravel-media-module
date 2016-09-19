@@ -122,7 +122,6 @@ return [
     'media' => [
         'default_img_path'              => 'vendor/laravel-modules-core/assets/global/img/media',
         'uploads' => [
-            // media photo options
             'path'                  => 'uploads/media',
             'max_size'              => '5120',
             'photo_aspect_ratio'    => 16/9,
