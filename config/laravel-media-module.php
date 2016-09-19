@@ -123,16 +123,14 @@ return [
         'default_img_path'              => 'vendor/laravel-modules-core/assets/global/img/media',
         'uploads' => [
             // media photo options
-            'photo' => [
-                'path'                  => 'uploads/media',
-                'max_size'              => '5120',
-                'aspect_ratio'          => 16/9,
-                'mimes'                 => 'jpeg,jpg,jpe,png',
-                'thumbnails' => [
-                    'small'             => [ 'width' => 35, 'height' => null],
-                    'normal'            => [ 'width' => 300, 'height' => null],
-                    'big'               => [ 'width' => 800, 'height' => null],
-                ]
+            'path'                  => 'uploads/media',
+            'max_size'              => '5120',
+            'photo_aspect_ratio'    => 16/9,
+            'photo_mimes'           => 'jpeg,jpg,jpe,png',
+            'photo_thumbnails' => [
+                'small'             => [ 'width' => 35, 'height' => null],
+                'normal'            => [ 'width' => 300, 'height' => null],
+                'big'               => [ 'width' => 800, 'height' => null],
             ]
         ]
     ],

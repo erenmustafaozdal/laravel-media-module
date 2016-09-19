@@ -102,6 +102,14 @@ class LaravelMediaModuleServiceProvider extends ServiceProvider
         $config['routes'] = $default['routes'];
 
 
+        $default['media']['uploads']['photo']['path'] = unsetReturn($config['media']['uploads'],'path');
+        $default['media']['uploads']['photo']['max_size'] = unsetReturn($config['media']['uploads'],'max_size');
+        $default['media']['uploads']['photo']['aspect_ratio'] = unsetReturn($config['media']['uploads'],'photo_aspect_ratio');
+        $default['media']['uploads']['photo']['mimes'] = unsetReturn($config['media']['uploads'],'photo_mimes');
+        $default['media']['uploads']['photo']['thumbnails'] = unsetReturn($config['media']['uploads'],'photo_thumbnails');
+        $config['media']['uploads']['photo'] = $default['media']['uploads']['photo'];
+
+
         // model photo uploads
         $config['media']['uploads']['photo']['relation'] = $default['media']['uploads']['photo']['relation'];
         $config['media']['uploads']['photo']['relation_model'] = $default['media']['uploads']['photo']['relation_model'];
