@@ -109,6 +109,5 @@ class LaravelMediaModuleServiceProvider extends ServiceProvider
         $config['media']['uploads']['photo']['column'] = $default['media']['uploads']['photo']['column'];
 
         $this->app['config']->set('laravel-media-module', $config);
-        dd($this->app['config']->get('laravel-media-module', []));
     }
 }
