@@ -88,6 +88,7 @@ class MediaCategoryController extends BaseNodeController
             'success'   => StoreSuccess::class,
             'fail'      => StoreFail::class
         ]);
+        $this->setRelation($request);
         if (is_null($id)) {
             $redirect = 'index';
             return $this->storeModel(MediaCategory::class,$redirect);
@@ -157,6 +158,7 @@ class MediaCategoryController extends BaseNodeController
             'success'   => UpdateSuccess::class,
             'fail'      => UpdateFail::class
         ]);
+        $this->setRelation($request);
         return $this->updateModel($media_category, $redirect);
     }
 

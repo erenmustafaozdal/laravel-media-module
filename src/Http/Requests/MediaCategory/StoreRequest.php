@@ -27,10 +27,23 @@ class StoreRequest extends Request
      */
     public function rules()
     {
-        return [
+        $rules = [
             'name'          => 'required|max:255',
             'type'          => 'required|in:photo,video,mixed',
-            'parent'        => 'integer'
+            'parent'        => 'integer',
+            'photo_width'   => 'numeric',
+            'photo_height'  => 'numeric',
         ];
+
+        // group number rules extend
+        if ($this->has('group-thumbnail') && is_array($this->get('group-thumbnail'))) {
+            for ($i = 0; $i < count($this->get('group-thumbnail')); $i++) {
+                $rules['group-thumbnail.' . $i . '.thumbnail_slug'] = 'alpha_dash|max:255';
+                $rules['group-thumbnail.' . $i . '.thumbnail_width'] = 'numeric';
+                $rules['group-thumbnail.' . $i . '.thumbnail_height'] = 'numeric';
+            }
+        }
+
+        return $rules;
     }
 }

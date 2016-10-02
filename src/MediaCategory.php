@@ -22,7 +22,20 @@ class MediaCategory extends Node
      *
      * @var array
      */
-    protected $fillable = ['name','type'];
+    protected $fillable = [
+        'name',
+        'type',
+        'has_description',
+        'datatable_filter',
+        'datatable_tools',
+        'datatable_fast_add',
+        'datatable_group_action',
+        'datatable_detail',
+        'description_is_editor',
+        'config_propagation',
+        'photo_width',
+        'photo_height',
+    ];
 
 
 
@@ -66,6 +79,22 @@ class MediaCategory extends Node
     public function medias()
     {
         return $this->belongsToMany('App\Media')->withTimestamps();
+    }
+
+    /**
+     * Get the thumbnails of the media category.
+     */
+    public function thumbnails()
+    {
+        return $this->hasMany('App\MediaThumbnail','category_id');
+    }
+
+    /**
+     * Get the extras of the media category.
+     */
+    public function extras()
+    {
+        return $this->hasMany('App\MediaExtra','category_id');
     }
 
 

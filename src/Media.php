@@ -117,6 +117,17 @@ class Media extends Model
         return $this->hasOne('App\MediaPhoto','media_id');
     }
 
+    /**
+     * Get the extra columns of the media.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function extras()
+    {
+        return $this->belongsToMany('App\MediaExtra','media_media_category_column','media_id','column_id')
+            ->withPivot('value');
+    }
+
 
 
 
@@ -198,6 +209,11 @@ class Media extends Model
                     }
                 }
                 $model->categories()->sync( $ids );
+            }
+
+            // extra value add
+            if (Request::has('extras')) {
+                $model->extras()->sync( Request::get('extras') );
             }
 
         });

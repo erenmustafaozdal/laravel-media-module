@@ -27,10 +27,26 @@ class UpdateRequest extends Request
      */
     public function rules()
     {
-        return [
-            'name'          => 'required|max:255',
-            'type'          => 'required|in:photo,video,mixed',
-            'parent'        => 'integer'
+        $rules = [
+            'parent'        => 'integer',
+            'photo_width'   => 'numeric',
+            'photo_height'  => 'numeric',
         ];
+
+        if( $this->form === 'general' ) {
+            $rules['name'] = 'required|max:255';
+            $rules['type'] = 'required|in:photo,video,mixed';
+        }
+
+        // group number rules extend
+        if ($this->has('group-thumbnail') && is_array($this->get('group-thumbnail'))) {
+            for ($i = 0; $i < count($this->get('group-thumbnail')); $i++) {
+                $rules['group-thumbnail.' . $i . '.thumbnail_slug'] = 'alpha_dash|max:255';
+                $rules['group-thumbnail.' . $i . '.thumbnail_width'] = 'numeric';
+                $rules['group-thumbnail.' . $i . '.thumbnail_height'] = 'numeric';
+            }
+        }
+
+        return $rules;
     }
 }

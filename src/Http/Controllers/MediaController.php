@@ -87,6 +87,8 @@ class MediaController extends BaseController
         } else {
             $redirect = 'media_category.media.index';
             $this->setRelationRouteParam($id, config('laravel-media-module.url.media'));
+            // options change with category
+            $this->changeOptions(MediaCategory::findOrFail($id));
         }
 
         $this->setToFileOptions($request, ['photo.photo' => 'photo']);
@@ -154,6 +156,8 @@ class MediaController extends BaseController
         } else {
             $redirect = 'media_category.media.show';
             $this->setRelationRouteParam($firstId, config('laravel-media-module.url.media'));
+            // options change with category
+            $this->changeOptions(MediaCategory::findOrFail($id));
         }
 
         $this->setEvents([
