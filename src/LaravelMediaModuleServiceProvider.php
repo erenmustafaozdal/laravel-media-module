@@ -109,13 +109,6 @@ class LaravelMediaModuleServiceProvider extends ServiceProvider
         $default['media']['uploads']['photo']['thumbnails'] = unsetReturn($config['media']['uploads'],'photo_thumbnails');
         $config['media']['uploads']['photo'] = $default['media']['uploads']['photo'];
 
-
-        // model photo uploads
-        $config['media']['uploads']['photo']['relation'] = $default['media']['uploads']['photo']['relation'];
-        $config['media']['uploads']['photo']['relation_model'] = $default['media']['uploads']['photo']['relation_model'];
-        $config['media']['uploads']['photo']['type'] = $default['media']['uploads']['photo']['type'];
-        $config['media']['uploads']['photo']['column'] = $default['media']['uploads']['photo']['column'];
-
         $this->app['config']->set('laravel-media-module', $config);
     }
 }
