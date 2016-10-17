@@ -33,6 +33,7 @@ class MigrationLaravelMediaModule extends Migration
 
                 // kategoriye bağlı olarak medyalar fotoğraf mı? video mu?
                 $table->string('type')->default('photo'); // [photo,video,mixed]
+                $table->string('gallery_type')->default('classical'); // [classical,modern,categorization]
                 $table->boolean('has_description')->default(0);
 
                 $table->string('name');

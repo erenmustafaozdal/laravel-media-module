@@ -30,6 +30,7 @@ class StoreRequest extends Request
         $rules = [
             'name'          => 'required|max:255',
             'type'          => 'required|in:photo,video,mixed',
+            'gallery_type'  => 'required|in:classical,modern,categorization',
             'parent'        => 'integer',
             'photo_width'   => 'numeric',
             'photo_height'  => 'numeric',

@@ -6,11 +6,8 @@ return [
     | General config
     |--------------------------------------------------------------------------
     */
-    'media_types' => [
-        'photo'             => 'photo',
-        'video'             => 'video',
-        'mixed'             => 'mixed'
-    ],
+    'media_types'       => [ 'photo', 'video', 'mixed' ],
+    'gallery_types'     => [ 'classical', 'modern', 'categorization' ],
 
     /*
     |--------------------------------------------------------------------------

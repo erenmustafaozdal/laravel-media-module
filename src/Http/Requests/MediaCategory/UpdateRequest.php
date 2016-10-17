@@ -36,6 +36,7 @@ class UpdateRequest extends Request
         if( $this->form === 'general' ) {
             $rules['name'] = 'required|max:255';
             $rules['type'] = 'required|in:photo,video,mixed';
+            $rules['gallery_type'] = 'required|in:classical,modern,categorization';
         }
 
         // group number rules extend

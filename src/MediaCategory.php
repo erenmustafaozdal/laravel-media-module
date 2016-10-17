@@ -25,6 +25,7 @@ class MediaCategory extends Node
     protected $fillable = [
         'name',
         'type',
+        'gallery_type',
         'has_description',
         'datatable_filter',
         'datatable_tools',

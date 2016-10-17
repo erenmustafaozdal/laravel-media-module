@@ -125,7 +125,7 @@ class MediaCategoryApiController extends BaseNodeController
             $models = MediaCategory::where('name', 'like', "%{$request->input('query')}%");
         }
 
-        $models = $models->get(['id','parent_id','lft','rgt','depth','name','type']);
-        return LMBCollection::renderAncestorsAndSelf($models, '/', ['name_uc_first', 'type']);
+        $models = $models->get(['id','parent_id','lft','rgt','depth','name','type','gallery_type']);
+        return LMBCollection::renderAncestorsAndSelf($models, '/', ['name_uc_first', 'type', 'gallery_type']);
     }
 }

@@ -57,6 +57,7 @@ class LaravelMediaModuleServiceProvider extends ServiceProvider
         $default = require __DIR__.'/../config/default.php';
 
         $config['media_types'] = $default['media_types'];
+        $config['gallery_types'] = $default['gallery_types'];
 
         // admin media category routes
         $route = $config['routes']['admin']['media_category'];
