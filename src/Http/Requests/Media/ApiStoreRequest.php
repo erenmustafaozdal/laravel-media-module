@@ -32,7 +32,7 @@ class ApiStoreRequest extends Request
 
         $rules = [
             'title'             => 'required|max:255',
-            'video'             => 'youtube_link|max:255'
+            'video'             => 'video_link|max:255'
         ];
 
         // photo elfinder mi

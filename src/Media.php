@@ -168,6 +168,19 @@ class Media extends Model
         return is_null($this->video) ? $this->photo->img : $this->video->img;
     }
 
+    /**
+     * get the video type of the media
+     *
+     * @return string
+     */
+    public function getVideoTypeAttribute()
+    {
+        if($this->video->youtube_id) {
+            return 'youtube';
+        }
+        return 'vimeo';
+    }
+
 
 
 
