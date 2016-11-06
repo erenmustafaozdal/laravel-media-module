@@ -7,7 +7,11 @@ return [
     |--------------------------------------------------------------------------
     */
     'media_types'       => [ 'photo', 'video', 'mixed' ],
-    'gallery_types'     => [ 'classical', 'modern', 'categorization' ],
+    'gallery_types' => [
+        'classical'     => 'Klasik',
+        'modern'        => 'Modern',
+        'categorization'=> 'Kategorili'
+    ],
 
     /*
     |--------------------------------------------------------------------------
