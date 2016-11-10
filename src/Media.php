@@ -77,6 +77,36 @@ class Media extends Model
         return $query;
     }
 
+    /**
+     * get detail data with all of the relation
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param integer|null $notRoot
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeGetDetail($query, $notRoot = null)
+    {
+        return $query->with([
+            'categories' => function($query) use($notRoot)
+            {
+                $query->select(['id','parent_id','lft','rgt','depth','name']);
+                if ( !is_null($notRoot)) {
+                    $query->where('id','!=',$notRoot);
+                }
+                return $query;
+            },
+            'video' => function($query)
+            {
+                return $query->select(['id','media_id','video']);
+            },
+            'photo' => function($query)
+            {
+                return $query->select(['id','media_id','photo']);
+            },
+            'extras'
+        ]);
+    }
+
 
 
 
@@ -217,9 +247,9 @@ class Media extends Model
 
                 if ( $refferer[1] === config('laravel-media-module.url.media_category') ) {
                     $ids[] = $refferer[2];
-                    if ( ! is_null($model->categories->first()) && ! in_array($model->categories->first()->id,$ids) ) {
-                        $ids[] = $model->categories->first()->id;
-                    }
+//                    if ( ! is_null($model->categories->first()) && ! in_array($model->categories->first()->id,$ids) ) {
+//                        $ids[] = $model->categories->first()->id;
+//                    }
                 }
                 $model->categories()->sync( $ids );
             }
