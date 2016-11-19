@@ -133,4 +133,83 @@ return [
             ]
         ]
     ],
+
+
+
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Permissions
+    |--------------------------------------------------------------------------
+    */
+    'permissions' => [
+        'media_category' => [
+            'title'                 => 'Medya Kategorileri',
+            'routes' => [
+                'admin.media_category.index' => [
+                    'title'         => 'Veri Tablosu',
+                    'description'   => 'Bu izne sahip olanlar medya kategorilerini veri tablosunda listeleyebilir.',
+                ],
+                'admin.media_category.create' => [
+                    'title'         => 'Ekleme',
+                    'description'   => 'Bu izne sahip olanlar medya kategorisi ekleyebilir',
+                ],
+                'admin.media_category.show' => [
+                    'title'         => 'Gösterme',
+                    'description'   => 'Bu izne sahip olanlar medya kategorisi bilgilerini görüntüleyebilir',
+                ],
+                'admin.media_category.edit' => [
+                    'title'         => 'Düzenleme',
+                    'description'   => 'Bu izne sahip olanlar medya kategorisini düzenleyebilir',
+                ],
+                'admin.media_category.destroy' => [
+                    'title'         => 'Silme',
+                    'description'   => 'Bu izne sahip olanlar medya kategorisini silebilir',
+                ],
+                'api.media_category.models' => [
+                    'title'         => 'Rolleri Listeleme',
+                    'description'   => 'Bu izne sahip olanlar medya kategorilerini bazı seçim kutularında listeleyebilir',
+                ],
+                'api.media_category.move' => [
+                    'title'         => 'Taşıma',
+                    'description'   => 'Bu izne sahip olanlar medya kategorilerini taşıyarak yerini değiştirebilir.',
+                ],
+            ],
+        ],
+        'media' => [
+            'title'                 => 'Medyalar',
+            'routes' => [
+                'admin.media.index' => [
+                    'title'         => 'Veri Tablosu',
+                    'description'   => 'Bu izne sahip olanlar medyaları veri tablosunda listeleyebilir.',
+                ],
+                'admin.media.create' => [
+                    'title'         => 'Ekleme',
+                    'description'   => 'Bu izne sahip olanlar medya ekleyebilir',
+                ],
+                'admin.media.show' => [
+                    'title'         => 'Gösterme',
+                    'description'   => 'Bu izne sahip olanlar medya bilgilerini görüntüleyebilir',
+                ],
+                'admin.media.edit' => [
+                    'title'         => 'Düzenleme',
+                    'description'   => 'Bu izne sahip olanlar medya bilgilerini düzenleyebilir',
+                ],
+                'admin.media.destroy' => [
+                    'title'         => 'Silme',
+                    'description'   => 'Bu izne sahip olanlar medyayı silebilir',
+                ],
+                'api.media.group' => [
+                    'title'         => 'Toplu İşlem',
+                    'description'   => 'Bu izne sahip olanlar medyalar veri tablosunda toplu işlem yapabilir',
+                ],
+                'api.media.detail' => [
+                    'title'         => 'Detaylar',
+                    'description'   => 'Bu izne sahip olanlar medyalar tablosunda detayını görebilir.',
+                ]
+            ],
+        ]
+    ],
 ];
