@@ -150,9 +150,13 @@ return [
             'routes' => [
                 'admin.media_category.index' => [
                     'title'         => 'Veri Tablosu',
-                    'description'   => 'Bu izne sahip olanlar medya kategorilerini veri tablosunda listeleyebilir.',
+                    'description'   => 'Bu izne sahip olanlar medya kategorileri veri tablosu sayfasına gidebilir.',
                 ],
                 'admin.media_category.create' => [
+                    'title'         => 'Ekleme Sayfası',
+                    'description'   => 'Bu izne sahip olanlar medya kategorisi ekleme sayfasına gidebilir',
+                ],
+                'admin.media_category.store' => [
                     'title'         => 'Ekleme',
                     'description'   => 'Bu izne sahip olanlar medya kategorisi ekleyebilir',
                 ],
@@ -161,6 +165,10 @@ return [
                     'description'   => 'Bu izne sahip olanlar medya kategorisi bilgilerini görüntüleyebilir',
                 ],
                 'admin.media_category.edit' => [
+                    'title'         => 'Düzenleme Sayfası',
+                    'description'   => 'Bu izne sahip olanlar medya kategorisini düzenleme sayfasına gidebilir',
+                ],
+                'admin.media_category.update' => [
                     'title'         => 'Düzenleme',
                     'description'   => 'Bu izne sahip olanlar medya kategorisini düzenleyebilir',
                 ],
@@ -168,13 +176,33 @@ return [
                     'title'         => 'Silme',
                     'description'   => 'Bu izne sahip olanlar medya kategorisini silebilir',
                 ],
+                'api.media_category.index' => [
+                    'title'         => 'Listeleme',
+                    'description'   => 'Bu izne sahip olanlar medya kategorilerini veri tablosunda listeleyebilir',
+                ],
+                'api.media_category.store' => [
+                    'title'         => 'Hızlı Ekleme',
+                    'description'   => 'Bu izne sahip olanlar medya kategorilerini veri tablosunda hızlı ekleyebilir.',
+                ],
+                'api.media_category.update' => [
+                    'title'         => 'Hızlı Düzenleme',
+                    'description'   => 'Bu izne sahip olanlar medya kategorilerini veri tablosunda hızlı düzenleyebilir.',
+                ],
+                'api.media_category.destroy' => [
+                    'title'         => 'Silme',
+                    'description'   => 'Bu izne sahip olanlar medya kategorilerini veri tablosunda silebilir',
+                ],
                 'api.media_category.models' => [
-                    'title'         => 'Rolleri Listeleme',
+                    'title'         => 'Seçim İçin Listeleme',
                     'description'   => 'Bu izne sahip olanlar medya kategorilerini bazı seçim kutularında listeleyebilir',
                 ],
                 'api.media_category.move' => [
                     'title'         => 'Taşıma',
                     'description'   => 'Bu izne sahip olanlar medya kategorilerini taşıyarak yerini değiştirebilir.',
+                ],
+                'api.media_category.detail' => [
+                    'title'         => 'Detaylar',
+                    'description'   => 'Bu izne sahip olanlar medya kategorilerinin detay bilgilerini getirebilir.',
                 ],
             ],
         ],
@@ -183,9 +211,13 @@ return [
             'routes' => [
                 'admin.media.index' => [
                     'title'         => 'Veri Tablosu',
-                    'description'   => 'Bu izne sahip olanlar medyaları veri tablosunda listeleyebilir.',
+                    'description'   => 'Bu izne sahip olanlar medyalar veri tablosu sayfasına gidebilir.',
                 ],
                 'admin.media.create' => [
+                    'title'         => 'Ekleme Sayfası',
+                    'description'   => 'Bu izne sahip olanlar medya ekleme sayfasına gidebilir',
+                ],
+                'admin.media.store' => [
                     'title'         => 'Ekleme',
                     'description'   => 'Bu izne sahip olanlar medya ekleyebilir',
                 ],
@@ -194,12 +226,40 @@ return [
                     'description'   => 'Bu izne sahip olanlar medya bilgilerini görüntüleyebilir',
                 ],
                 'admin.media.edit' => [
+                    'title'         => 'Düzenleme Sayfası',
+                    'description'   => 'Bu izne sahip olanlar medyayı düzenleme sayfasına gidebilir',
+                ],
+                'admin.media.update' => [
                     'title'         => 'Düzenleme',
-                    'description'   => 'Bu izne sahip olanlar medya bilgilerini düzenleyebilir',
+                    'description'   => 'Bu izne sahip olanlar medyayı düzenleyebilir',
                 ],
                 'admin.media.destroy' => [
                     'title'         => 'Silme',
                     'description'   => 'Bu izne sahip olanlar medyayı silebilir',
+                ],
+                'admin.media.publish' => [
+                    'title'         => 'Yayınlama',
+                    'description'   => 'Bu izne sahip olanlar medyayı yayınlayabilir',
+                ],
+                'admin.media.notPublish' => [
+                    'title'         => 'Yayından Kaldırma',
+                    'description'   => 'Bu izne sahip olanlar medyayı yayından kaldırabilir',
+                ],
+                'api.media.index' => [
+                    'title'         => 'Listeleme',
+                    'description'   => 'Bu izne sahip olanlar medyaları veri tablosunda listeleyebilir',
+                ],
+                'api.media.store' => [
+                    'title'         => 'Hızlı Ekleme',
+                    'description'   => 'Bu izne sahip olanlar medyaları veri tablosunda hızlı ekleyebilir.',
+                ],
+                'api.media.update' => [
+                    'title'         => 'Hızlı Düzenleme',
+                    'description'   => 'Bu izne sahip olanlar medyaları veri tablosunda hızlı düzenleyebilir.',
+                ],
+                'api.media.destroy' => [
+                    'title'         => 'Silme',
+                    'description'   => 'Bu izne sahip olanlar medyaları veri tablosunda silebilir',
                 ],
                 'api.media.group' => [
                     'title'         => 'Toplu İşlem',
@@ -208,8 +268,20 @@ return [
                 'api.media.detail' => [
                     'title'         => 'Detaylar',
                     'description'   => 'Bu izne sahip olanlar medyalar tablosunda detayını görebilir.',
-                ]
+                ],
+                'api.media.fastEdit' => [
+                    'title'         => 'Hızlı Düzenleme Bilgileri',
+                    'description'   => 'Bu izne sahip olanlar medyalar tablosunda hızlı düzenleme amacıyla bilgileri getirebilir.',
+                ],
+                'api.media.publish' => [
+                    'title'         => 'Hızlı Yayınlama',
+                    'description'   => 'Bu izne sahip olanlar medyalar tablosunda medyayı yayınlanyabilir.',
+                ],
+                'api.media.notPublish' => [
+                    'title'         => 'Hızlı Yayından Kaldırma',
+                    'description'   => 'Bu izne sahip olanlar medyalar tablosunda medyayı yayından kaldırabilir.',
+                ],
             ],
-        ]
+        ],
     ],
 ];
