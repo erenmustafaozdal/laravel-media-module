@@ -16,7 +16,7 @@ class UpdateRequest extends Request
     {
         $hackedRoute = 'admin.media.update';
         if ( ! is_null($this->segment(4))) {
-            $hackedRoute .= '#####' .$this->segment(3);
+            $hackedRoute = 'admin.media_category.media.update#####' .$this->segment(3);
         }
         return hasPermission($hackedRoute);
     }
