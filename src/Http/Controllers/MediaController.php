@@ -157,7 +157,7 @@ class MediaController extends BaseController
             $redirect = 'media_category.media.show';
             $this->setRelationRouteParam($firstId, config('laravel-media-module.url.media'));
             // options change with category
-            $this->changeOptions(MediaCategory::findOrFail($id));
+            $this->changeOptions(MediaCategory::findOrFail($firstId));
         }
 
         $this->setEvents([
