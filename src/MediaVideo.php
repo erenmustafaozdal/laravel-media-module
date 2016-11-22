@@ -127,7 +127,7 @@ class MediaVideo extends Model
     public function getFullscreenHtmlAttribute()
     {
         return "<div class='embed-responsive embed-responsive-16by9'>
-            <iframe class='embed-responsive-item' allowfullscreen src='{$this->embed_url}'></iframe>
+            <iframe class='embed-responsive-item' webkitallowfullscreen mozallowfullscreen allowfullscreen src='{$this->embed_url}'></iframe>
         </div>";
     }
 
