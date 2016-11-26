@@ -28,7 +28,7 @@ class ApiStoreRequest extends Request
         $mimes_photo = config('laravel-media-module.media.uploads.photo.mimes');
 
         $rules = [
-            'title'             => 'required|max:255',
+            'title'             => 'max:255',
             'video'             => 'video_link|max:255'
         ];
 
