@@ -259,6 +259,11 @@ class Media extends Model
                 $model->extras()->sync( Request::get('extras') );
             }
 
+            // cache forget
+            if (\Request::segment(3) == 1) \Cache::forget(implode('_',['medias','enterprise_photo'])); // kurumsal foto
+            if (\Request::segment(3) == 2) \Cache::forget(implode('_',['medias','enterprise_video'])); // kurumsal video
+            if (\Request::segment(3) == 3) \Cache::forget(implode('_',['medias','media_we_photo'])); // basında biz foto
+            if (\Request::segment(3) == 4) \Cache::forget(implode('_',['medias','media_we_video'])); // basında biz video
         });
 
         /**
@@ -270,6 +275,12 @@ class Media extends Model
         {
             $file = new FileRepository(config('laravel-media-module.media.uploads'));
             $file->deleteDirectories($model);
+
+            // cache forget
+            if (\Request::segment(3) == 1) \Cache::forget(implode('_',['medias','enterprise_photo'])); // kurumsal foto
+            if (\Request::segment(3) == 2) \Cache::forget(implode('_',['medias','enterprise_video'])); // kurumsal video
+            if (\Request::segment(3) == 3) \Cache::forget(implode('_',['medias','media_we_photo'])); // basında biz foto
+            if (\Request::segment(3) == 4) \Cache::forget(implode('_',['medias','media_we_video'])); // basında biz video
         });
     }
 }

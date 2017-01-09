@@ -142,6 +142,26 @@ class MediaCategory extends Node
                     );
                 $model->medias()->sync( $ids );
             }
+
+            // cache forget
+            if (\Request::segment(3) == 1) \Cache::forget(implode('_',['medias','enterprise_photo'])); // kurumsal foto
+            if (\Request::segment(3) == 2) \Cache::forget(implode('_',['medias','enterprise_video'])); // kurumsal video
+            if (\Request::segment(3) == 3) \Cache::forget(implode('_',['medias','media_we_photo'])); // basında biz foto
+            if (\Request::segment(3) == 4) \Cache::forget(implode('_',['medias','media_we_video'])); // basında biz video
+        });
+
+        /**
+         * model deleted method
+         *
+         * @param $model
+         */
+        parent::deleted(function($model)
+        {
+            // cache forget
+            if (\Request::segment(3) == 1) \Cache::forget(implode('_',['medias','enterprise_photo'])); // kurumsal foto
+            if (\Request::segment(3) == 2) \Cache::forget(implode('_',['medias','enterprise_video'])); // kurumsal video
+            if (\Request::segment(3) == 3) \Cache::forget(implode('_',['medias','media_we_photo'])); // basında biz foto
+            if (\Request::segment(3) == 4) \Cache::forget(implode('_',['medias','media_we_video'])); // basında biz video
         });
     }
 }
