@@ -261,9 +261,10 @@ class Media extends Model
 
             // cache forget
             if (\Request::segment(3) == 1) \Cache::forget(implode('_',['medias','enterprise_photo'])); // kurumsal foto
-            if (\Request::segment(3) == 2) \Cache::forget(implode('_',['medias','enterprise_video'])); // kurumsal video
+//            if (\Request::segment(3) == 2) \Cache::forget(implode('_',['medias','enterprise_video'])); // kurumsal video
             if (\Request::segment(3) == 3) \Cache::forget(implode('_',['medias','media_we_photo'])); // basında biz foto
-            if (\Request::segment(3) == 4) \Cache::forget(implode('_',['medias','media_we_video'])); // basında biz video
+//            if (\Request::segment(3) == 4) \Cache::forget(implode('_',['medias','media_we_video'])); // basında biz video
+            if (\Request::segment(3) == 2 || \Request::segment(3) == 4) \Cache::forget('home_videos'); // ana sayfa videolar
         });
 
         /**
@@ -278,9 +279,10 @@ class Media extends Model
 
             // cache forget
             if (\Request::segment(3) == 1) \Cache::forget(implode('_',['medias','enterprise_photo'])); // kurumsal foto
-            if (\Request::segment(3) == 2) \Cache::forget(implode('_',['medias','enterprise_video'])); // kurumsal video
+//            if (\Request::segment(3) == 2) \Cache::forget(implode('_',['medias','enterprise_video'])); // kurumsal video
             if (\Request::segment(3) == 3) \Cache::forget(implode('_',['medias','media_we_photo'])); // basında biz foto
-            if (\Request::segment(3) == 4) \Cache::forget(implode('_',['medias','media_we_video'])); // basında biz video
+//            if (\Request::segment(3) == 4) \Cache::forget(implode('_',['medias','media_we_video'])); // basında biz video
+            if (\Request::segment(3) == 2 || \Request::segment(3) == 4) \Cache::forget('home_videos'); // ana sayfa videolar
         });
     }
 }
