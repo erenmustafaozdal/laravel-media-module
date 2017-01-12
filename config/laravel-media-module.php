@@ -11,6 +11,12 @@ return [
         'media'             => 'icon-picture',
         'media_category'    => 'icon-notebook'
     ],
+    'media_types'       => [ 'photo', 'video', 'mixed' ],
+    'gallery_types' => [
+        'classical'     => 'Klasik',
+        'modern'        => 'Modern',
+        'categorization'=> 'Kategorili'
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -51,16 +57,28 @@ return [
     */
     'routes' => [
         'admin' => [
-            'media_category'            => true,        // Is the route to be used categories admin
-            'media'                     => true,        // Is the route to be used medias admin
-            'nested_sub_categories'     => true,        // Did subcategory nested categories admin route will be used
-            'sub_category_medias'       => true,        // Did subcategory media admin route will be used
+            'media_category'                => true,        // admin media category resource route
+            'media'                         => true,        // admin media resource route
+            'media_publish'                 => true,        // admin media publish get route
+            'media_notPublish'              => true,        // admin media not publish get route
+            'category_categories'           => true,        // admin category nested categories resource route
+            'category_medias'               => true,        // admin category medias resource route
+            'category_medias_publish'       => true,        // admin category medias publish get route
+            'category_medias_notPublish'    => true         // admin category medias not publish get route
         ],
         'api' => [
-            'media_category'            => true,        // Is the route to be used categories api
-            'media'                     => true,        // Is the route to be used medias api
-            'nested_sub_categories'     => true,        // Did subcategory nested categories api route will be used
-            'sub_category_medias'       => true,        // Did subcategory media api route will be used
+            'media_category'                => true,        // api media category resource route
+            'media_category_models'         => true,        // api media category model post route
+            'media_category_move'           => true,        // api media category move post route
+            'media_category_detail'         => true,        // api media category detail post route
+            'media'                         => true,        // api media resource route
+            'media_group'                   => true,        // api media group post route
+            'media_detail'                  => true,        // api media detail get route
+            'media_fastEdit'                => true,        // api media fast edit post route
+            'media_publish'                 => true,        // api media publish post route
+            'media_notPublish'              => true,        // api media not publish post route
+            'category_categories_index'     => true,        // api category nested categories index get route
+            'category_medias_index'         => true,        // api category medias index get route
         ]
     ],
 
@@ -122,14 +140,21 @@ return [
     'media' => [
         'default_img_path'              => 'vendor/laravel-modules-core/assets/global/img/media',
         'uploads' => [
-            'path'                  => 'uploads/media',
-            'max_size'              => '5120',
-            'photo_aspect_ratio'    => 16/9,
-            'photo_mimes'           => 'jpeg,jpg,jpe,png',
-            'photo_thumbnails' => [
-                'small'             => [ 'width' => 35, 'height' => null],
-                'normal'            => [ 'width' => 300, 'height' => null],
-                'big'               => [ 'width' => 800, 'height' => null],
+            // media photo options
+            'photo' => [
+                'relation'              => 'hasOne',
+                'relation_model'        => '\App\MediaPhoto',
+                'type'                  => 'image',
+                'column'                => 'photo.photo',
+                'path'                  => 'uploads/media',
+                'max_size'              => '5120',
+                'aspect_ratio'          => 16/9,
+                'mimes'                 => 'jpeg,jpg,jpe,png',
+                'thumbnails' => [
+                    'small'             => [ 'width' => 35, 'height' => null],
+                    'normal'            => [ 'width' => 300, 'height' => null],
+                    'big'               => [ 'width' => 800, 'height' => null],
+                ]
             ]
         ]
     ],
