@@ -8,6 +8,13 @@ use Sentinel;
 class StoreRequest extends BaseRequest
 {
     /**
+     * The input keys that should not be flashed on redirect.
+     *
+     * @var array
+     */
+    protected $dontFlash = ['photo','category_id'];
+
+    /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
