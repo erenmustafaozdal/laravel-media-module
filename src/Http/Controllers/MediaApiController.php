@@ -295,9 +295,22 @@ class MediaApiController extends BaseController
      */
     public function group(Request $request)
     {
+        $this->clearCache();
         if ( $this->groupAlias(Media::class) ) {
             return response()->json(['result' => 'success']);
         }
         return response()->json(['result' => 'error']);
+    }
+
+    /**
+     * clear cache
+     *
+     * @return void
+     */
+    private function clearCache()
+    {
+        \Cache::forget(implode('_',['medias','enterprise_photo'])); // kurumsal foto
+        \Cache::forget(implode('_',['medias','media_we_photo'])); // basında biz foto
+        \Cache::forget('home_videos'); // ana sayfa videolar
     }
 }
