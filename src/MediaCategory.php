@@ -147,6 +147,22 @@ class MediaCategory extends Node
             \Cache::forget(implode('_',['medias','enterprise_photo'])); // kurumsal foto
             \Cache::forget(implode('_',['medias','media_we_photo'])); // basında biz foto
             \Cache::forget('home_videos'); // ana sayfa videolar
+
+            $category_id = $model->isRoot() ? $model->id : $model->getRoot()->id;
+            $categories = \DB::table('media_categories')->select('media_categories.id','cat.id')
+                ->where('media_categories.id', $category_id)
+                ->join('media_categories as cat', function ($join) {
+                    $join->on('cat.lft', '>=', 'media_categories.lft')
+                        ->on('cat.lft', '<', 'media_categories.rgt');
+                })->get();
+            $totalPages = (int) ceil(\DB::table('medias')->count()/6) + 1;
+            foreach($categories as $category) {
+                \Cache::forget(implode('_', ['media_categories', $category->id]));
+                \Cache::forget(implode('_', ['media_categories', 'descendantsAndSelf', 'withMedias', $category->id]));
+                for($i = 1; $i <= $totalPages; $i++) {
+                    \Cache::forget(implode('_', ['category_medias',$category->id,'page',$i]));
+                }
+            }
         });
 
         /**
@@ -160,6 +176,22 @@ class MediaCategory extends Node
             \Cache::forget(implode('_',['medias','enterprise_photo'])); // kurumsal foto
             \Cache::forget(implode('_',['medias','media_we_photo'])); // basında biz foto
             \Cache::forget('home_videos'); // ana sayfa videolar
+
+            $category_id = $model->isRoot() ? $model->id : $model->getRoot()->id;
+            $categories = \DB::table('media_categories')->select('media_categories.id','cat.id')
+                ->where('media_categories.id', $category_id)
+                ->join('media_categories as cat', function ($join) {
+                    $join->on('cat.lft', '>=', 'media_categories.lft')
+                        ->on('cat.lft', '<', 'media_categories.rgt');
+                })->get();
+            $totalPages = (int) ceil(\DB::table('medias')->count()/6) + 1;
+            foreach($categories as $category) {
+                \Cache::forget(implode('_', ['media_categories', $category->id]));
+                \Cache::forget(implode('_', ['media_categories', 'descendantsAndSelf', 'withMedias', $category->id]));
+                for($i = 1; $i <= $totalPages; $i++) {
+                    \Cache::forget(implode('_', ['category_medias',$category->id,'page',$i]));
+                }
+            }
         });
 
         /**
@@ -173,6 +205,22 @@ class MediaCategory extends Node
             \Cache::forget(implode('_',['medias','enterprise_photo'])); // kurumsal foto
             \Cache::forget(implode('_',['medias','media_we_photo'])); // basında biz foto
             \Cache::forget('home_videos'); // ana sayfa videolar
+
+            $category_id = $model->isRoot() ? $model->id : $model->getRoot()->id;
+            $categories = \DB::table('media_categories')->select('media_categories.id','cat.id')
+                ->where('media_categories.id', $category_id)
+                ->join('media_categories as cat', function ($join) {
+                    $join->on('cat.lft', '>=', 'media_categories.lft')
+                        ->on('cat.lft', '<', 'media_categories.rgt');
+                })->get();
+            $totalPages = (int) ceil(\DB::table('medias')->count()/6) + 1;
+            foreach($categories as $category) {
+                \Cache::forget(implode('_', ['media_categories', $category->id]));
+                \Cache::forget(implode('_', ['media_categories', 'descendantsAndSelf', 'withMedias', $category->id]));
+                for($i = 1; $i <= $totalPages; $i++) {
+                    \Cache::forget(implode('_', ['category_medias',$category->id,'page',$i]));
+                }
+            }
         });
     }
 }
