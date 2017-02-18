@@ -283,16 +283,14 @@ class Media extends Model
             }
         });
 
+
         /**
          * model deleted method
          *
          * @param $model
          */
-        parent::deleted(function($model)
+        parent::deleting(function($model)
         {
-            $file = new FileRepository(config('laravel-media-module.media.uploads'));
-            $file->deleteDirectories($model);
-
             // cache forget
             \Cache::forget(implode('_',['medias','enterprise_photo'])); // kurumsal foto
             \Cache::forget(implode('_',['medias','media_we_photo'])); // basında biz foto
@@ -315,6 +313,17 @@ class Media extends Model
                     \Cache::forget(implode('_', ['category_medias',$category->id,'page',$i]));
                 }
             }
+        });
+
+        /**
+         * model deleted method
+         *
+         * @param $model
+         */
+        parent::deleted(function($model)
+        {
+            $file = new FileRepository(config('laravel-media-module.media.uploads'));
+            $file->deleteDirectories($model);
         });
     }
 }
